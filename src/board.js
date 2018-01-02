@@ -60,8 +60,11 @@ export class Board {
       const neighborRowIndex = rowIndex + offset[0];
       const neighborColumnIndex = columnIndex + offset[1];
       if (neighborRowIndex >= 0 && neighborRowIndex < numberOfRows && neighborColumnIndex >= 0 && neighborColumnIndex < numberOfColumns) {
-        this._playerBoard[neighborRowIndex][neighborColumnIndex] = this.getNumberOfNeighborBombs(neighborRowIndex, neighborColumnIndex);
-        this._numberOfTiles--;
+        if (this._playerBoard[neighborRowIndex][neighborColumnIndex] !== ' ') {
+          return;
+        } else {
+          this.flipTile(neighborRowIndex, neighborColumnIndex);
+        }
       }
     });
   }
