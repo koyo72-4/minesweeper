@@ -23,6 +23,31 @@ export class Board {
       this._playerBoard[rowIndex][columnIndex] = 'B';
     } else {
       this._playerBoard[rowIndex][columnIndex] = this.getNumberOfNeighborBombs(rowIndex, columnIndex);
+      if (this._playerBoard[rowIndex][columnIndex] === 0) {
+        const neighborOffsets = [
+          [-1, -1],
+          [-1, 0],
+          [-1, 1],
+          [0, -1],
+          [0, 1],
+          [1, -1],
+          [1, 0],
+          [1, 1]
+        ];
+        const numberOfRows = this._bombBoard.length;
+        const numberOfColumns = this._bombBoard[0].length;
+        neighborOffsets.forEach(offset => {
+          const neighborRowIndex = rowIndex + offset[0];
+          const neighborColumnIndex = columnIndex + offset[1];
+          if (neighborRowIndex >= 0 && neighborRowIndex < numberOfRows && neighborColumnIndex >= 0 && neighborColumnIndex < numberOfColumns) {
+            if (this._playerBoard[neighborRowIndex][neighborColumnIndex] !== ' ') {
+              return;
+            } else {
+              this.flipTile(neighborRowIndex, neighborColumnIndex);
+            }
+          }
+        });
+      }
     }
     this._numberOfTiles--;
   }
@@ -41,32 +66,6 @@ export class Board {
     } else {
       this._playerBoard[rowIndex][columnIndex] = ' ';
     }
-  }
-
-  flipNeighborTiles(rowIndex, columnIndex) {
-    const neighborOffsets = [
-      [-1, -1],
-      [-1, 0],
-      [-1, 1],
-      [0, -1],
-      [0, 1],
-      [1, -1],
-      [1, 0],
-      [1, 1]
-    ];
-    const numberOfRows = this._bombBoard.length;
-    const numberOfColumns = this._bombBoard[0].length;
-    neighborOffsets.forEach(offset => {
-      const neighborRowIndex = rowIndex + offset[0];
-      const neighborColumnIndex = columnIndex + offset[1];
-      if (neighborRowIndex >= 0 && neighborRowIndex < numberOfRows && neighborColumnIndex >= 0 && neighborColumnIndex < numberOfColumns) {
-        if (this._playerBoard[neighborRowIndex][neighborColumnIndex] !== ' ') {
-          return;
-        } else {
-          this.flipTile(neighborRowIndex, neighborColumnIndex);
-        }
-      }
-    });
   }
 
   getNumberOfNeighborBombs(rowIndex, columnIndex) {

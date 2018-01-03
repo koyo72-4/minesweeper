@@ -7,6 +7,10 @@
 // let game = new Game(3, 3, 3);
 // game.playMove(0, 1);
 // game.playMove(1, 2);
+// If you think there is a bomb on a specific tile, for example (0, 1), you can run the this command:
+// game.placeFlag(0, 1);
+// If you want to unflag that tile, you can run this command:
+// game.removeFlag(0, 1);
 // When done run `.exit`
 
 import { Board } from './board';
@@ -24,10 +28,6 @@ class Game {
     this._board.flipTile(rowIndex, columnIndex);
     if (this._board.playerBoard[rowIndex][columnIndex] === 'B') {
       console.log('Sorry, game over.');
-      this._board.print();
-    } else if (/*this._board.hasSafeTiles() && */this._board.playerBoard[rowIndex][columnIndex] === '0') {
-      this._board.flipNeighborTiles(rowIndex, columnIndex);
-      console.log('Current Board:');
       this._board.print();
     } else if (this._board.hasSafeTiles()) {
       console.log('Current Board:');
