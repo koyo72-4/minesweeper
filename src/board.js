@@ -4,15 +4,10 @@ export class Board {
     this._numberOfTiles = numberOfRows * numberOfColumns;
     this._playerBoard = Board.generatePlayerBoard(numberOfRows, numberOfColumns);
     this._bombBoard = Board.generateBombBoard(numberOfRows, numberOfColumns, numberOfBombs);
-    this._startTime = new Date();
   }
 
   get playerBoard() {
     return this._playerBoard;
-  }
-
-  get startTime() {
-    return this._startTime;
   }
 
   flipTile(rowIndex, columnIndex) {

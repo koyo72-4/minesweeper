@@ -19,6 +19,7 @@ class Game {
   constructor(numberOfRows, numberOfColumns, numberOfBombs) {
     if (numberOfBombs < numberOfRows * numberOfColumns) {
       this._board = new Board(numberOfRows, numberOfColumns, numberOfBombs);
+      this._startTime = new Date();
     } else {
       console.log('The number of bombs must be less than the number of tiles on the board. Please specify a new game board.');
     }
@@ -34,7 +35,7 @@ class Game {
       this._board.print();
     } else {
       let endTime = new Date();
-      let timeTakenToFinishGame = (endTime - this._board.startTime) / 1000;
+      let timeTakenToFinishGame = (endTime - this._startTime) / 1000;
       console.log(`Congratulations, you win!\nYou completed this game in ${timeTakenToFinishGame} seconds.`);
       this._board.print();
     }
